@@ -56,7 +56,7 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
     rightContentRender: () => <RightContent/>,
     disableContentMargin: false,
     waterMarkProps: {
-      content: initialState?.currentUser?.name,
+      content: initialState?.currentUser?.username,
     },
     footerRender: () => <Footer/>,
     onPageChange: () => {
@@ -94,18 +94,10 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
     },
     menu: {
       locale: false,
+      params: initialState,
       request: async () => {
-        return [
-          {
-            name: '权限管理',
-            routes: [
-              {
-                path: '/menu/List',
-                name: '菜单管理',
-              },
-            ],
-          },
-        ];
+        console.log(initialState?.currentUser?.menu)
+        return initialState?.currentUser?.menu
       },
     },
     ...initialState?.settings,
