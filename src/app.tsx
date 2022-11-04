@@ -96,7 +96,6 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
       locale: false,
       params: initialState,
       request: async () => {
-        console.log(initialState?.currentUser?.menu)
         return initialState?.currentUser?.menu
       },
     },

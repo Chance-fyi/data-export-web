@@ -1,9 +1,9 @@
 import {ModalForm, ProFormText, ProFormTreeSelect} from "@ant-design/pro-components";
-import {Button, Form, message} from "antd";
-import {PlusOutlined} from "@ant-design/icons";
-import {createMenu, menuSelectTree} from "@/api/menu";
+import {Form, message} from "antd";
+import {editMenu, GetMenu, menuSelectTree} from "@/api/menu";
 import {useState} from "react";
 import {validateErrorStatus} from "../../../../utils/util";
+import {EditOutlined} from "@ant-design/icons";
 
 export default (r: any) => {
   const [form] = Form.useForm();
@@ -17,19 +17,21 @@ export default (r: any) => {
 
   return (
     <ModalForm
-      title="新建菜单"
+      title="编辑菜单"
       width="25%"
       form={form}
       trigger={
-        <Button type="primary">
-          <PlusOutlined/>
-          新建
-        </Button>
+        <EditOutlined/>
       }
       autoFocusFirstInput
+      request={async () => {
+        const {data} = await GetMenu(r.id)
+        data.parent_id = data.parent_id ? data.parent_id : null
+        return data
+      }}
       onFinish={async (values) => {
         setErrorText(initErrorText)
-        const res = await createMenu(values)
+        const res = await editMenu(values)
 
         if (res.code) {
           if (res.data) {
@@ -41,11 +43,11 @@ export default (r: any) => {
         } else {
           r.action.reload()
           message.success(res.message)
-          form.resetFields()
           return true;
         }
       }}
     >
+      <ProFormText name="id" hidden/>
       <ProFormText name="name" label="名称" validateStatus={validateErrorStatus(errorText.name)} help={errorText.name}/>
       <ProFormText name="path" label="Path" validateStatus={validateErrorStatus(errorText.path)} help={errorText.path}/>
       <ProFormTreeSelect
