@@ -27,7 +27,6 @@ export default (r: any) => {
       autoFocusFirstInput
       request={async () => {
         const {data} = await getUser(r.id)
-        data.parent_id = data.parent_id ? data.parent_id : null
         return data
       }}
       onFinish={async (values) => {

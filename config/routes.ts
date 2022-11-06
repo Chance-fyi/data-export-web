@@ -20,6 +20,10 @@
     component: './user/List',
   },
   {
+    path: '/role/list',
+    component: './role/List',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },
