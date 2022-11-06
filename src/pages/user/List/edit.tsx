@@ -1,23 +1,24 @@
-import {ModalForm, ProFormText, ProFormTreeSelect} from "@ant-design/pro-components";
+import {ModalForm, ProFormText} from "@ant-design/pro-components";
 import {Form} from "antd";
-import {editMenu, GetMenu, menuSelectTree} from "@/api/menu";
 import {useState} from "react";
 import {checkEdit, validateErrorStatus} from "../../../../utils/util";
 import {EditOutlined} from "@ant-design/icons";
+import {editUser, getUser} from "@/api/user";
 
 export default (r: any) => {
   const [form] = Form.useForm();
   const initErrorText = () => {
     return {
-      name: "",
-      path: "",
+      username: "",
+      password: "",
+      confirm_password: "",
     }
   }
   const [errorText, setErrorText] = useState(initErrorText)
 
   return (
     <ModalForm
-      title="编辑菜单"
+      title="编辑用户"
       width="25%"
       form={form}
       trigger={
@@ -25,27 +26,23 @@ export default (r: any) => {
       }
       autoFocusFirstInput
       request={async () => {
-        const {data} = await GetMenu(r.id)
+        const {data} = await getUser(r.id)
         data.parent_id = data.parent_id ? data.parent_id : null
         return data
       }}
       onFinish={async (values) => {
         setErrorText(initErrorText)
-        const res = await editMenu(values)
+        const res = await editUser(values)
         return await checkEdit(res, form, setErrorText, r.action.reload)
       }}
     >
       <ProFormText name="id" hidden/>
-      <ProFormText name="name" label="名称" validateStatus={validateErrorStatus(errorText.name)} help={errorText.name}/>
-      <ProFormText name="path" label="Path" validateStatus={validateErrorStatus(errorText.path)} help={errorText.path}/>
-      <ProFormTreeSelect
-        name="parent_id"
-        label="父级"
-        request={async () => {
-          const {data} = await menuSelectTree()
-          return data
-        }}
-      />
+      <ProFormText name="username" label="用户名" validateStatus={validateErrorStatus(errorText.username)}
+                   help={errorText.username}/>
+      <ProFormText name="password" label="密码" validateStatus={validateErrorStatus(errorText.password)}
+                   help={errorText.password}/>
+      <ProFormText name="confirm_password" label="确认密码"
+                   validateStatus={validateErrorStatus(errorText.confirm_password)} help={errorText.confirm_password}/>
     </ModalForm>
   )
 }

@@ -16,6 +16,10 @@
     component: './menu/List',
   },
   {
+    path: '/user/list',
+    component: './user/List',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },

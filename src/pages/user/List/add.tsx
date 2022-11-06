@@ -1,23 +1,24 @@
-import {ModalForm, ProFormText, ProFormTreeSelect} from "@ant-design/pro-components";
+import {ModalForm, ProFormText} from "@ant-design/pro-components";
 import {Button, Form} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
-import {createMenu, menuSelectTree} from "@/api/menu";
 import {useState} from "react";
 import {checkAdd, validateErrorStatus} from "../../../../utils/util";
+import {createUser} from "@/api/user";
 
 export default (r: any) => {
   const [form] = Form.useForm();
   const initErrorText = () => {
     return {
-      name: "",
-      path: "",
+      username: "",
+      password: "",
+      confirm_password: "",
     }
   }
   const [errorText, setErrorText] = useState(initErrorText)
 
   return (
     <ModalForm
-      title="新建菜单"
+      title="新建用户"
       width="25%"
       form={form}
       trigger={
@@ -29,20 +30,16 @@ export default (r: any) => {
       autoFocusFirstInput
       onFinish={async (values) => {
         setErrorText(initErrorText)
-        const res = await createMenu(values)
+        const res = await createUser(values)
         return await checkAdd(res, form, setErrorText, r.action.reload)
       }}
     >
-      <ProFormText name="name" label="名称" validateStatus={validateErrorStatus(errorText.name)} help={errorText.name}/>
-      <ProFormText name="path" label="Path" validateStatus={validateErrorStatus(errorText.path)} help={errorText.path}/>
-      <ProFormTreeSelect
-        name="parent_id"
-        label="父级"
-        request={async () => {
-          const {data} = await menuSelectTree()
-          return data
-        }}
-      />
+      <ProFormText name="username" label="用户名" validateStatus={validateErrorStatus(errorText.username)}
+                   help={errorText.username}/>
+      <ProFormText name="password" label="密码" validateStatus={validateErrorStatus(errorText.password)}
+                   help={errorText.password}/>
+      <ProFormText name="confirm_password" label="确认密码"
+                   validateStatus={validateErrorStatus(errorText.confirm_password)} help={errorText.confirm_password}/>
     </ModalForm>
   )
 }
