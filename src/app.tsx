@@ -1,6 +1,6 @@
 import Footer from '@/components/Footer';
 import RightContent from '@/components/RightContent';
-import type {Settings as LayoutSettings} from '@ant-design/pro-components';
+import type {MenuDataItem, Settings as LayoutSettings} from '@ant-design/pro-components';
 import {PageLoading, SettingDrawer} from '@ant-design/pro-components';
 import type {RunTimeLayoutConfig} from 'umi';
 import {history} from 'umi';
@@ -8,6 +8,8 @@ import defaultSettings from '../config/defaultSettings';
 // @ts-ignore
 import type {ProLayoutProps} from "@ant-design/pro-layout";
 import {getUserInfo} from "@/api/login";
+import * as IconMap from '@ant-design/icons';
+import React from "react";
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -16,6 +18,19 @@ const loginPath = '/user/login';
 export const initialStateConfig = {
   loading: <PageLoading/>,
 };
+
+const loopMenuItem = (menus: any[]): MenuDataItem[] =>
+  menus.map(({ icon, routes, ...item }) => {
+    if (icon && IconMap[icon]){
+      // eslint-disable-next-line no-param-reassign
+      icon = React.createElement(IconMap[icon])
+    }
+    return {
+      ...item,
+      icon: icon,
+      children: routes && loopMenuItem(routes),
+    }
+  });
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
@@ -96,7 +111,7 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
       locale: false,
       params: initialState,
       request: async () => {
-        return initialState?.currentUser?.menu
+        return loopMenuItem(initialState?.currentUser?.menu)
       },
     },
     ...initialState?.settings,

@@ -9,6 +9,7 @@ type Item = {
   id: bigint,
   name: string,
   path: string,
+  icon: string,
 }
 
 const columns: ProColumns<Item>[] = [
@@ -27,6 +28,12 @@ const columns: ProColumns<Item>[] = [
     title: 'Path',
     dataIndex: 'path',
     key: 'path',
+    search: false,
+  },
+  {
+    title: '图标',
+    dataIndex: 'icon',
+    key: 'icon',
     search: false,
   },
   {

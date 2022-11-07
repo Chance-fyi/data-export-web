@@ -11,6 +11,7 @@ export default (r: any) => {
     return {
       name: "",
       path: "",
+      icon: "",
     }
   }
   const [errorText, setErrorText] = useState(initErrorText)
@@ -38,6 +39,7 @@ export default (r: any) => {
       <ProFormText name="id" hidden/>
       <ProFormText name="name" label="名称" validateStatus={validateErrorStatus(errorText.name)} help={errorText.name}/>
       <ProFormText name="path" label="Path" validateStatus={validateErrorStatus(errorText.path)} help={errorText.path}/>
+      <ProFormText name="icon" label="图标" validateStatus={validateErrorStatus(errorText.icon)} help={errorText.icon}/>
       <ProFormTreeSelect
         name="parent_id"
         label="父级"
