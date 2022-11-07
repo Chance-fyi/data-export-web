@@ -4,10 +4,12 @@ import {userList} from "@/api/user";
 import {useRef} from "react";
 import AddUser from "./add"
 import EditUser from "./edit";
+import {Tag} from "antd";
 
 type Item = {
   id: bigint,
   username: string,
+  role: []
 }
 
 const columns: ProColumns<Item>[] = [
@@ -21,6 +23,16 @@ const columns: ProColumns<Item>[] = [
     title: '用户名',
     dataIndex: 'username',
     key: 'username',
+  },
+  {
+    title: '角色',
+    search: false,
+    render: (text, record: Item) => {
+      if (record.role) {
+        return record.role.map((roleName: string) => <Tag key={roleName} color="success">{roleName}</Tag>)
+      }
+      return ""
+    }
   },
   {
     title: '操作',

@@ -1,9 +1,10 @@
-import {ModalForm, ProFormText} from "@ant-design/pro-components";
+import {ModalForm, ProFormSelect, ProFormText} from "@ant-design/pro-components";
 import {Form} from "antd";
 import {useState} from "react";
 import {checkEdit, validateErrorStatus} from "../../../../utils/util";
 import {EditOutlined} from "@ant-design/icons";
 import {editUser, getUser} from "@/api/user";
+import {userRoleList} from "@/api/role";
 
 export default (r: any) => {
   const [form] = Form.useForm();
@@ -42,6 +43,17 @@ export default (r: any) => {
                    help={errorText.password}/>
       <ProFormText name="confirm_password" label="确认密码"
                    validateStatus={validateErrorStatus(errorText.confirm_password)} help={errorText.confirm_password}/>
+      <ProFormSelect
+        name="role_ids"
+        label="角色"
+        fieldProps={{
+          mode: "multiple"
+        }}
+        request={async () => {
+          const {data} = await userRoleList()
+          return data
+        }}
+      />
     </ModalForm>
   )
 }
