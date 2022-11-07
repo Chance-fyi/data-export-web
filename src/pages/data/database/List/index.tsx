@@ -1,13 +1,13 @@
-import {useRef} from "react";
 import type {ActionType, ProColumns} from "@ant-design/pro-components";
 import {ProTable} from "@ant-design/pro-components";
-import AddRole from "./add";
-import {roleList} from "@/api/role";
-import EditRole from "./edit";
+import AddDatabase from "./add"
+import EditDatabase from "./edit"
+import {useRef} from "react";
+import {databaseList} from "@/api/database";
 
 type Item = {
-  id: bigint
-  name: string
+  id: bigint,
+  name: string,
 }
 
 const columns: ProColumns<Item>[] = [
@@ -26,7 +26,7 @@ const columns: ProColumns<Item>[] = [
     title: '操作',
     search: false,
     render: (text, record: Item, index, action) => {
-      return <EditRole id={record.id} action={action}/>
+      return <EditDatabase id={record.id} action={action}/>
     }
   },
 ]
@@ -36,18 +36,18 @@ export default () => {
   return (
     <>
       <ProTable<Item>
-        headerTitle="角色列表"
+        headerTitle="数据库列表"
         rowKey="id"
         columns={columns}
         actionRef={ref}
         toolBarRender={() => [
-          <AddRole key="addRole" action={ref.current}/>,
+          <AddDatabase key="addDatabase" action={ref.current}/>,
         ]}
         request={async (params = {}) => {
-          const res = await roleList(params)
+          const res = await databaseList(params)
           return res.data
         }}
       />
     </>
-  )
-}
+  );
+};

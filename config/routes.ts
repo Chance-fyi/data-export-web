@@ -24,6 +24,10 @@
     component: './role/List',
   },
   {
+    path: '/database/list',
+    component: './data/database/List',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },

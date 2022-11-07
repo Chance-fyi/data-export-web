@@ -16,6 +16,6 @@ export const editRole = (data: object) => {
   return PostRequest("/api/role/edit", data)
 }
 
-export const userRoleList = () => {
-  return GetRequest("/api/role/userRoleList")
+export const roleSelectList = () => {
+  return GetRequest("/api/role/selectList")
 }
