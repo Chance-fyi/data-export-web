@@ -1,9 +1,9 @@
 import {ModalForm, ProFormText} from "@ant-design/pro-components";
-import {Button, Form} from "antd";
-import {PlusOutlined} from "@ant-design/icons";
+import {Form} from "antd";
 import {useState} from "react";
-import {checkAdd, validateErrorStatus} from "../../../../../utils/util";
-import {createDatabase} from "@/api/database";
+import {checkEdit, validateErrorStatus} from "../../../../utils/util";
+import {EditOutlined} from "@ant-design/icons";
+import {editDatabase, GetDatabase} from "@/api/database";
 
 export default (r: any) => {
   const [form] = Form.useForm();
@@ -21,22 +21,25 @@ export default (r: any) => {
 
   return (
     <ModalForm
-      title="新建数据库"
+      title="编辑数据库"
       width="25%"
       form={form}
       trigger={
-        <Button type="primary">
-          <PlusOutlined/>
-          新建
-        </Button>
+        <EditOutlined/>
       }
       autoFocusFirstInput
+      request={async () => {
+        const {data} = await GetDatabase(r.id)
+        data.parent_id = data.parent_id ? data.parent_id : null
+        return data
+      }}
       onFinish={async (values) => {
         setErrorText(initErrorText)
-        const res = await createDatabase(values)
-        return await checkAdd(res, form, setErrorText, r.action.reload)
+        const res = await editDatabase(values)
+        return await checkEdit(res, form, setErrorText, r.action.reload)
       }}
     >
+      <ProFormText name="id" hidden/>
       <ProFormText name="name" label="名称" validateStatus={validateErrorStatus(errorText.name)} help={errorText.name}/>
       <ProFormText name="hostname" label="数据库链接" validateStatus={validateErrorStatus(errorText.hostname)}
                    help={errorText.hostname}/>

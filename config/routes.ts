@@ -25,7 +25,11 @@
   },
   {
     path: '/database/list',
-    component: './data/database/List',
+    component: './database/List',
+  },
+  {
+    path: '/sql/list',
+    component: './sql/List',
   },
   {
     path: '/',
