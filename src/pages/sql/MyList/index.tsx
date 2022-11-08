@@ -1,12 +1,15 @@
 import type {ActionType, ProColumns} from "@ant-design/pro-components";
-import {ProTable} from "@ant-design/pro-components";
+import {ProFormSelect, ProTable} from "@ant-design/pro-components";
 import {useRef} from "react";
 import {mySqlList} from "@/api/sql";
 import {Space} from "antd";
 import SetName from "./setName";
+import {databaseSelectList} from "@/api/database";
 
 type Item = {
   id: bigint,
+  name: string,
+  database_name: string,
   fields: string,
 }
 
@@ -21,6 +24,19 @@ const columns: ProColumns<Item>[] = [
     title: '备注',
     dataIndex: 'name',
     key: 'name',
+  },
+  {
+    title: '数据库',
+    dataIndex: 'database_name',
+    key: 'database_id',
+    renderFormItem: () => {
+      return <ProFormSelect
+        request={async () => {
+          const {data} = await databaseSelectList()
+          return data
+        }}
+      />
+    }
   },
   {
     title: '字段',

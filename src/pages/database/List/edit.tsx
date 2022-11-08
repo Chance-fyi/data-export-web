@@ -3,7 +3,7 @@ import {Form} from "antd";
 import {useState} from "react";
 import {checkEdit, validateErrorStatus} from "../../../../utils/util";
 import {EditOutlined} from "@ant-design/icons";
-import {editDatabase, GetDatabase} from "@/api/database";
+import {editDatabase, getDatabase} from "@/api/database";
 
 export default (r: any) => {
   const [form] = Form.useForm();
@@ -29,7 +29,7 @@ export default (r: any) => {
       }
       autoFocusFirstInput
       request={async () => {
-        const {data} = await GetDatabase(r.id)
+        const {data} = await getDatabase(r.id)
         return data
       }}
       onFinish={async (values) => {

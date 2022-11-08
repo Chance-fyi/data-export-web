@@ -8,10 +8,14 @@ export const createDatabase = (data: object) => {
   return PostRequest("/api/database/create", data)
 }
 
-export const GetDatabase = (id: bigint) => {
+export const getDatabase = (id: bigint) => {
   return GetRequest("/api/database/get", {id})
 }
 
 export const editDatabase = (data: object) => {
   return PostRequest("/api/database/edit", data)
+}
+
+export const databaseSelectList = () => {
+  return GetRequest("/api/database/selectList")
 }

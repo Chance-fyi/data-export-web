@@ -1,14 +1,16 @@
-import {ModalForm, ProFormText, ProFormTextArea} from "@ant-design/pro-components";
+import {ModalForm, ProFormSelect, ProFormText, ProFormTextArea} from "@ant-design/pro-components";
 import {Form} from "antd";
 import {useState} from "react";
 import {checkEdit, validateErrorStatus} from "../../../../utils/util";
 import {EditOutlined} from "@ant-design/icons";
 import {editSql, GetSql} from "@/api/sql";
+import {databaseSelectList} from "@/api/database";
 
 export default (r: any) => {
   const [form] = Form.useForm();
   const initErrorText = () => {
     return {
+      database_id: "",
       sql: "",
     }
   }
@@ -34,6 +36,15 @@ export default (r: any) => {
       }}
     >
       <ProFormText name="id" hidden/>
+      <ProFormSelect
+        name="database_id"
+        label="数据库"
+        validateStatus={validateErrorStatus(errorText.database_id)} help={errorText.database_id}
+        request={async () => {
+          const {data} = await databaseSelectList()
+          return data
+        }}
+      />
       <ProFormTextArea
         name="sql"
         label="SQL"
