@@ -23,3 +23,15 @@ export const getUserSql = (id: bigint) => {
 export const setUserSql = (data: object) => {
   return PostRequest("/api/sql/setUser", data)
 }
+
+export const mySqlList = (params: object) => {
+  return GetRequest("/api/sql/myList", params)
+}
+
+export const getUserSqlName = (id: bigint) => {
+  return GetRequest("/api/sql/getUserSqlName", {id})
+}
+
+export const setUserSqlName = (data: object) => {
+  return PostRequest("/api/sql/setUserSqlName", data)
+}

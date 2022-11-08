@@ -32,6 +32,10 @@
     component: './sql/List',
   },
   {
+    path: '/sql/myList',
+    component: './sql/MyList',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },
