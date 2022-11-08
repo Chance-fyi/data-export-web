@@ -15,3 +15,11 @@ export const GetSql = (id: bigint) => {
 export const editSql = (data: object) => {
   return PostRequest("/api/sql/edit", data)
 }
+
+export const getUserSql = (id: bigint) => {
+  return GetRequest("/api/sql/getUser", {id})
+}
+
+export const setUserSql = (data: object) => {
+  return PostRequest("/api/sql/setUser", data)
+}

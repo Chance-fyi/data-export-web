@@ -2,8 +2,10 @@ import type {ActionType, ProColumns} from "@ant-design/pro-components";
 import {ProTable} from "@ant-design/pro-components";
 import AddSql from "./add"
 import EditSql from "./edit"
+import SetUser from "./setUser"
 import {useRef} from "react";
 import {sqlList} from "@/api/sql";
+import {Space} from "antd";
 
 type Item = {
   id: bigint,
@@ -26,7 +28,12 @@ const columns: ProColumns<Item>[] = [
     title: '操作',
     search: false,
     render: (text, record: Item, index, action) => {
-      return <EditSql id={record.id} action={action}/>
+      return <>
+        <Space size={20}>
+          <EditSql id={record.id} action={action}/>
+          <SetUser id={record.id} action={action}/>
+        </Space>
+      </>
     }
   },
 ]

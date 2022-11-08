@@ -15,3 +15,7 @@ export const getUser = (id: bigint) => {
 export const editUser = (data: object) => {
   return PostRequest("/api/user/edit", data)
 }
+
+export const userSelectList = () => {
+  return GetRequest("/api/user/selectList")
+}
