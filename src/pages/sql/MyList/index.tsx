@@ -4,6 +4,7 @@ import {useRef} from "react";
 import {mySqlList} from "@/api/sql";
 import {Space} from "antd";
 import SetName from "./setName";
+import Download from "./download";
 import {databaseSelectList} from "@/api/database";
 
 type Item = {
@@ -11,6 +12,7 @@ type Item = {
   name: string,
   database_name: string,
   fields: string,
+  sql_id: string,
 }
 
 const columns: ProColumns<Item>[] = [
@@ -50,6 +52,7 @@ const columns: ProColumns<Item>[] = [
       return <>
         <Space size={20}>
           <SetName id={record.id} action={action}/>
+          <Download id={record.id} sql_id={record.sql_id} action={action}/>
         </Space>
       </>
     }

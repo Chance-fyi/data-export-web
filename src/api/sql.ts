@@ -35,3 +35,7 @@ export const getUserSqlName = (id: bigint) => {
 export const setUserSqlName = (data: object) => {
   return PostRequest("/api/sql/setUserSqlName", data)
 }
+
+export const getDownloadSql = (id: bigint) => {
+  return GetRequest("/api/sql/getDownloadSql", {id})
+}
