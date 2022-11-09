@@ -15,6 +15,7 @@ export default (r: any) => {
       username: "",
       password: "",
       database: "",
+      charset: "",
     }
   }
   const [errorText, setErrorText] = useState(initErrorText)
@@ -47,6 +48,8 @@ export default (r: any) => {
                    help={errorText.password}/>
       <ProFormText name="database" label="数据库名" validateStatus={validateErrorStatus(errorText.database)}
                    help={errorText.database}/>
+      <ProFormText name="charset" label="字符集" validateStatus={validateErrorStatus(errorText.charset)}
+                   help={errorText.charset}/>
     </ModalForm>
   )
 }
