@@ -53,6 +53,9 @@ export default (r: any) => {
   const onChange = () => {
     const values = form.getFieldsValue()
     let s = sql
+    if (!formItem) {
+      return
+    }
     for (const {name, type} of formItem) {
       let value = values[name]
       if (value == undefined) {

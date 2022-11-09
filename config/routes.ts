@@ -36,6 +36,10 @@
     component: './sql/MyList',
   },
   {
+    path: '/export/list',
+    component: './export/List',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },
