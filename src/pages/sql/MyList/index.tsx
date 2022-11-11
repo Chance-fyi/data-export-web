@@ -23,11 +23,6 @@ const columns: ProColumns<Item>[] = [
     search: false,
   },
   {
-    title: '备注',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
     title: '数据库',
     dataIndex: 'database_name',
     key: 'database_id',
@@ -39,6 +34,11 @@ const columns: ProColumns<Item>[] = [
         }}
       />
     }
+  },
+  {
+    title: '备注',
+    dataIndex: 'name',
+    key: 'name',
   },
   {
     title: '字段',

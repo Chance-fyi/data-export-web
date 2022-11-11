@@ -25,6 +25,7 @@ export default (r: any) => {
       }
       autoFocusFirstInput
       request={async () => {
+        form.setFieldValue("name", r.name)
         const {data} = await getUserSql(r.id)
         return data
       }}
@@ -34,6 +35,7 @@ export default (r: any) => {
       }}
     >
       <ProFormText name="id" hidden/>
+      <ProFormText name="name" hidden/>
       <ProFormSelect
         name="user_ids"
         label="用户"

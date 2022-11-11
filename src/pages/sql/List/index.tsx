@@ -12,6 +12,7 @@ type Item = {
   id: bigint,
   fields: string,
   name: string,
+  database_name: string,
 }
 
 const columns: ProColumns<Item>[] = [
@@ -23,7 +24,7 @@ const columns: ProColumns<Item>[] = [
   },
   {
     title: '数据库',
-    dataIndex: 'name',
+    dataIndex: 'database_name',
     key: 'database_id',
     renderFormItem: () => {
       return <ProFormSelect
@@ -33,6 +34,11 @@ const columns: ProColumns<Item>[] = [
         }}
       />
     }
+  },
+  {
+    title: '备注',
+    dataIndex: 'name',
+    key: 'name',
   },
   {
     title: '字段',
@@ -46,7 +52,7 @@ const columns: ProColumns<Item>[] = [
       return <>
         <Space size={20}>
           <EditSql id={record.id} action={action}/>
-          <SetUser id={record.id} action={action}/>
+          <SetUser id={record.id} name={record.name} action={action}/>
         </Space>
       </>
     }

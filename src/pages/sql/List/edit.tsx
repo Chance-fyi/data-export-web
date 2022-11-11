@@ -11,6 +11,7 @@ export default (r: any) => {
   const initErrorText = () => {
     return {
       database_id: "",
+      name: "",
       sql: "",
     }
   }
@@ -45,6 +46,7 @@ export default (r: any) => {
           return data
         }}
       />
+      <ProFormText name="name" label="备注" validateStatus={validateErrorStatus(errorText.name)} help={errorText.name}/>
       <ProFormTextArea
         name="sql"
         label="SQL"

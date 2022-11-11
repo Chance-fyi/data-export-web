@@ -1,4 +1,4 @@
-import {ModalForm, ProFormSelect, ProFormTextArea} from "@ant-design/pro-components";
+import {ModalForm, ProFormSelect, ProFormText, ProFormTextArea} from "@ant-design/pro-components";
 import {Button, Form} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
 import {useState} from "react";
@@ -11,6 +11,7 @@ export default (r: any) => {
   const initErrorText = () => {
     return {
       database_id: "",
+      name: "",
       sql: "",
     }
   }
@@ -43,6 +44,7 @@ export default (r: any) => {
           return data
         }}
       />
+      <ProFormText name="name" label="备注" validateStatus={validateErrorStatus(errorText.name)} help={errorText.name}/>
       <ProFormTextArea
         name="sql"
         label="SQL"
