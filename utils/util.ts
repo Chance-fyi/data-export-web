@@ -20,7 +20,8 @@ const req = async (method: string, url: string, data: any, params: any): Promise
 
   const {code} = res
   if (code === 101 && url !== '/api/logout') {
-    await refreshToken()
+    const r = await refreshToken()
+    localStorage.setItem('token', r.data?.token as string)
     return await req(method, url, data, params)
   } else if (code === 100) {
     history.push('/user/login')
