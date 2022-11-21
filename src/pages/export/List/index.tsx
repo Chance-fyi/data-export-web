@@ -1,9 +1,10 @@
 import type {ActionType, ProColumns} from "@ant-design/pro-components";
 import {ProTable} from "@ant-design/pro-components";
-import {useRef} from "react";
+import React, {useRef} from "react";
 import {exportList} from "@/api/export";
-import {DownloadOutlined} from "@ant-design/icons";
-import {Button} from "antd";
+import {CheckCircleOutlined, DownloadOutlined} from "@ant-design/icons";
+import {Button, notification} from "antd";
+import {history} from "umi";
 
 type Item = {
   id: bigint,
@@ -72,8 +73,22 @@ const columns: ProColumns<Item>[] = [
   },
 ]
 
+let ref: React.MutableRefObject<ActionType | undefined>
+
+export const ExportSuccess = (name: string) => {
+  notification.open({
+    message: `${name} 已完成`,
+    icon: <CheckCircleOutlined style={{color: '#52c41a'}}/>,
+    onClick: () => {
+      history.push('/export/list')
+    }
+  })
+  // @ts-ignore
+  ref?.current?.reload()
+}
+
 export default () => {
-  const ref = useRef<ActionType>();
+  ref = useRef<ActionType>();
   return (
     <>
       <ProTable<Item>

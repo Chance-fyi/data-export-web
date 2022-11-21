@@ -10,6 +10,7 @@ import type {ProLayoutProps} from "@ant-design/pro-layout";
 import {getUserInfo} from "@/api/login";
 import * as IconMap from '@ant-design/icons';
 import React from "react";
+import {InitWebSocket} from "@/api/websocket";
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -20,8 +21,8 @@ export const initialStateConfig = {
 };
 
 const loopMenuItem = (menus: any[]): MenuDataItem[] =>
-  menus.map(({ icon, routes, ...item }) => {
-    if (icon && IconMap[icon]){
+  menus.map(({icon, routes, ...item}) => {
+    if (icon && IconMap[icon]) {
       // eslint-disable-next-line no-param-reassign
       icon = React.createElement(IconMap[icon])
     }
@@ -50,6 +51,9 @@ export async function getInitialState(): Promise<{
     }
     return undefined;
   };
+
+  InitWebSocket()
+
   // 如果不是登录页面，执行
   if (history.location.pathname !== loginPath) {
     const currentUser = await fetchUserInfo();
